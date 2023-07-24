@@ -20,14 +20,15 @@ class OrdersController < ApplicationController
 
     # Parcourir les lignes de "Order 1"
     order1.each { |row|
-      @packages << row[0].value
-      @items << row[1].value
       # Croisement horizontal et vertical des données pour avoir la valeur de chaque cellule
       row && row.cells.each { |cell|
         val = cell && cell.value
         @orders << val
       }
     }
-    end
-
+    # Récupérer les élements par packages
+    @orders.each_slice(4) { |slice|
+      @packages << slice
+    }
+  end
 end
